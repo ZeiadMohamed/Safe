@@ -1,5 +1,5 @@
 #include "LCD.h"
-#include <util/delay.h>
+#include <util/delay.h>  // so i can use _dealy_ms() function
 
 
 
