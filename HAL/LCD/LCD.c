@@ -50,14 +50,7 @@ void LCD_WriteSentence(UINT8 *PtrSentance)
 
 void LCD_Clear(void)
 {
-        GPIO_WRITE_PIN_VALUE(RS_PORT, RS_PIN, LOW);  // so i can write command
-	GPIO_WRITE_PIN_VALUE(RW_PORT, RW_PIN, LOW); //  to tell the lcd that i am going to write data
-	GPIO_WRITE_PIN_VALUE(EN_PORT, EN_PIN, HIGH); // activating the enable
-	_delay_ms(2);
-	GPIO_WRITE_PORT_VALUE(LCD_PORT, LCD_CLEAR_ALSO_DDRAM); // clear lcd display
-	_delay_ms(2);
-	GPIO_WRITE_PIN_VALUE(EN_PORT, EN_PIN, LOW); // disabling the enable
-	_delay_ms(2);
-	
+
+       LCD_WriteCommand(LCD_CLEAR_ALSO_DDRAM) ;
 
 }
