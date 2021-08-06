@@ -6,7 +6,7 @@
 *                       Pins &  Keypad Symbols                    *
 ******************************************************************/
 
-#define KEYPAD_ARRAY   {'7','8','9','D'},\
+#define KEYPAD_ARRAY   		       {'7','8','9','D'},\
 				       {'4','5','6','M'},\
 				       {'1','2','3','N'},\
 				       {'C','0','=','P'}
@@ -21,9 +21,6 @@
 #define C2_PIN 5
 #define C3_PIN 6
 #define C4_PIN 7
-
-#define type_of_connection 1 // to make it more generic
-
 
 
 #define COL 4
