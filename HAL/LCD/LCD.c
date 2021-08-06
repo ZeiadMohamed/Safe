@@ -50,7 +50,5 @@ void LCD_WriteSentence(UINT8 *PtrSentance)
 
 void LCD_Clear(void)
 {
-
-	
-
+       LCD_WriteCommand(LCD_CLEAR_ALSO_DDRAM) ;
 }
