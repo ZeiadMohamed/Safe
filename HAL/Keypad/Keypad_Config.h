@@ -32,8 +32,7 @@
 #define COL_INT 4
 #define COL_END 8
 
-#define LOW 0
-#define HIGH 1
+
 
 
 
