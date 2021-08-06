@@ -1,6 +1,6 @@
 #include "Keypad.h"
 #include "Keypad_Config.h"
-
+#include<util/delay.h>
 
 static const UINT8 keypad_array[COL][ROW] =  { KEYPAD_ARRAY };   //more readable
 
@@ -31,7 +31,7 @@ void Keypad_Init(void){
 }
 
 
-}
+
 
 
 UINT8 Keypad_GetKey(void)

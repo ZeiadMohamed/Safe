@@ -30,7 +30,7 @@ void LCD_Init(void)
 	LCD_WriteCommand(LCD_CLEAR_ALSO_DDRAM); //clear LCD
 	_delay_ms(20);
 	LCD_WriteCommand(LCD_ENTRY_MODE);
-	LCD_WriteCommand(FORCE_CURSOR_TO_BEGINNIN);
+	LCD_WriteCommand(FORCE_CURSOR_TO_BEGINNING_1ST_LINE);
 
 }
 
