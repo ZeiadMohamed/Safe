@@ -16,7 +16,21 @@ static void LCD_WriteCommand(UINT8 Command)
 
 void LCD_Init(void)
 {
+	_delay_ms(50);          // said in Data sheet to delay after power on for 1st time
 
+	DIO_SetPortDirection(LCD_PORT ,OutPut);  // IO Pins Init
+	DIO_SetPinDirection(RS_PORT,RS_PIN,High);
+	DIO_SetPinDirection(EN_PORT,EN_PIN,High);
+	DIO_SetPinDirection(RW_PORT,RW_PIN,High);
+
+	LCD_WriteCommand(LCD_8BIT_2_LINE_5_x_7); 
+	_delay_ms(1);           //delay 1ms a must delay as said in Data sheet
+	LCD_WriteCommand(LCD_DISPLAY_ON_CURSOR_OFF); 
+	_delay_ms(1);    //delay 1ms
+	LCD_WriteCommand(LCD_CLEAR_ALSO_DDRAM); //clear LCD
+	_delay_ms(20);
+	LCD_WriteCommand(LCD_ENTRY_MODE);
+	LCD_WriteCommand(FORCE_CURSOR_TO_BEGINNIN
 
 }
 
