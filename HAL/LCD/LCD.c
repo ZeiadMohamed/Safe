@@ -18,10 +18,10 @@ void LCD_Init(void)
 {
 	_delay_ms(50);          // said in Data sheet to delay after power on for 1st time
 
-	DIO_SetPortDirection(LCD_PORT ,OutPut);  // IO Pins Init
-	DIO_SetPinDirection(RS_PORT,RS_PIN,High);
-	DIO_SetPinDirection(EN_PORT,EN_PIN,High);
-	DIO_SetPinDirection(RW_PORT,RW_PIN,High);
+	GPIO_INIT_PORT_DIRECTION(LCD_PORT ,OUTPUT);  // IO Pins Init
+	GPIO_INIT_PIN_DIRECTION(RS_PORT,RS_PIN,OUTPUT);
+	GPIO_INIT_PIN_DIRECTION(EN_PORT,EN_PIN,OUTPUT);
+	GPIO_INIT_PIN_DIRECTION(RW_PORT,RW_PIN,OUTPUT);
 
 	LCD_WriteCommand(LCD_8BIT_2_LINE_5_x_7); 
 	_delay_ms(1);           //delay 1ms a must delay as said in Data sheet
@@ -30,7 +30,7 @@ void LCD_Init(void)
 	LCD_WriteCommand(LCD_CLEAR_ALSO_DDRAM); //clear LCD
 	_delay_ms(20);
 	LCD_WriteCommand(LCD_ENTRY_MODE);
-	LCD_WriteCommand(FORCE_CURSOR_TO_BEGINNIN
+	LCD_WriteCommand(FORCE_CURSOR_TO_BEGINNIN);
 
 }
 
