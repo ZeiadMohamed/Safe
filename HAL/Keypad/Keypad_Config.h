@@ -24,6 +24,16 @@
 
 
 
+#define COL 4
+#define ROW 4
+
+#define ROW_INT 0
+#define ROW_END 4
+#define COL_INT 4
+#define COL_END 8
+
+#define LOW 0
+#define HIGH 1
 
 
 
