@@ -4,13 +4,13 @@
 #include "../../MCAL/GPIO/GPIO_CONFIG.h"
 
 /********************************* define control and data Pins    *******************************************/
-#define RS_PORT  PORT_C
+#define RS_PORT  PORT_B
 #define RS_PIN   4
-#define RW_PORT  PORT_C
+#define RW_PORT  PORT_B
 #define RW_PIN   5
-#define EN_PORT  PORT_C
+#define EN_PORT  PORT_B
 #define EN_PIN   6
-#define LCD_PORT  PORT_B
+#define LCD_PORT  PORT_A
 
 /**********************************    LCD standard commands   ****************************************/
 #define LCD_4BIT_1_LINE_5_x_7              0x20
