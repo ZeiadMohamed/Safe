@@ -30,7 +30,7 @@
 #define ROW_INT 0
 #define ROW_END 3
 #define COL_INT 4
-#define COL_END 8
+#define COL_END 7
 
 
 
