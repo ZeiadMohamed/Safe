@@ -22,6 +22,8 @@
 #define C3_PIN 6
 #define C4_PIN 7
 
+#define type_of_connection 1 // to make it more generic
+
 
 
 
