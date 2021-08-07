@@ -12,7 +12,7 @@
 				       {'C','0','=','P'}
 
 
-#define KEYPAD_PORT PORT_B
+#define KEYPAD_PORT PORT_C
 #define R1_PIN 0
 #define R2_PIN 1
 #define R3_PIN 2
