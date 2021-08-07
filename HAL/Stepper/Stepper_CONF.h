@@ -12,7 +12,7 @@
 #define PIN3					3
 #define PIN4					4
 #define PIN5					5
-#define PIN6					6
+
 
 #define MOTOR_TYPE				UNIPOLAR
 #define STEP_SEQUENCE_TYPE 		NORMAL_STEP_SEQUENCE_4
