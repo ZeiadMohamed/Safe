@@ -7,7 +7,7 @@
 #include "../../LIB/UTILES.h"
 
 void LCD_Init(void);
-void LCD_WriteChar(UINT8 Character);
+void LCD_WriteData(UINT8 Character);
 void LCD_WriteSentence(UINT8 *PtrSentance);
 void LCD_Clear(void);
 
