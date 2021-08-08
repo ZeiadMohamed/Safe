@@ -17,7 +17,7 @@
 #define MOTOR_TYPE				UNIPOLAR
 #define STEP_SEQUENCE_TYPE 		NORMAL_STEP_SEQUENCE_4
 #define MOTOR_DIRECTION 		CLOCKWISE
-
+#define STEPS_PER_REVOLUTION  500 // resolution of the stepper motor
 
 
 
