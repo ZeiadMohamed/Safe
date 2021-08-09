@@ -5,7 +5,7 @@
 
 
 
-#define MOTOR_PORT				PORT_C
+#define MOTOR_PORT				PORT_D
 #define PIN0					0
 #define PIN1					1
 #define PIN2					2
