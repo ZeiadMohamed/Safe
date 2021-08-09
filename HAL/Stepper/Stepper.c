@@ -1,7 +1,7 @@
 #include "Stepper.h"
 static UINT8 DELAY_TIME = 100;// to be able to change time in (ms)
 
-
+static UINT8 motor_direction = MOTOR_DIRECTION;
 
 
 void Stepper_Init(){
@@ -38,7 +38,14 @@ void Stepper_SetSpeed(UINT8 speed)
 }
 
 void Stepper_SetDirection(UINT8 direction){
-
+	switch(direction){
+	case CLOCKWISE:
+		motor_direction = CLOCKWISE;
+		break;
+	case COUNTER_CLOCKWISE:
+		motor_direction = COUNTER_CLOCKWISE;
+		break;
+	}
 
 }
 
