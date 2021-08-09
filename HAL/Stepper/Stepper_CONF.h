@@ -10,8 +10,8 @@
 #define WINDING_B					1
 #define WINDING_C					2
 #define WINDING_D					3
-#define PIN4					4
-#define PIN5					5
+#define WINDING_E					4
+#define WINDING_F					5
 
 
 #define MOTOR_TYPE				BIPOLAR
