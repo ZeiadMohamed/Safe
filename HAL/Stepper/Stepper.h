@@ -11,4 +11,10 @@ void Stepper_SetSpeed(UINT8 speed);
 void Stepper_SetDirection(UINT8 direction);
 void Stepper_Step(UINT8 steps);
 
+
+
+void stepper_full_step(void);
+void stepper_half_step(void);
+
+
 #endif /* STEPPER_H_ */
