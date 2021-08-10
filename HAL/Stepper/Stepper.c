@@ -100,7 +100,7 @@ void stepper_half_Revolution(void)
           _delay_ms(10);
     
            if(i==4)
-			    	i=0;
+        	i=0;
           
   }
   
@@ -140,7 +140,7 @@ void stepper_half_Revolution(void)
           _delay_ms(10);
     
          if(i==4)
-						i=0;
+          i=0;
           
   }
   
