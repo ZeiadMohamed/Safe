@@ -1,7 +1,7 @@
 #ifndef APP_H_
 #define APP_H_
 
-
+#include "../LIB/STD_TYPES.h"
 
 
 /* 	 Function    : print_enter_new_password
