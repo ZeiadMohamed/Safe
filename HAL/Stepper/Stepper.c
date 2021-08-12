@@ -50,7 +50,7 @@ void Stepper_SetDirection(UINT8 direction){
 }
 
 
-void Stepper_Step(UINT8 steps){
+void Stepper_Steps(UINT8 steps){
 
 
 }
