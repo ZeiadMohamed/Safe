@@ -25,17 +25,26 @@ UINT8 get_password(void){
 	UINT8 i;
 	LCD_2nd_Line();
 
-	password = Keypad_GetKey();
+/******* converting from ASCII to integer (Decimal) *******/
+	password = Keypad_GetKey() - '0'; //'0' = 48 in ASCII
 	LCD_WriteData('*');
 
+/******* Getting password one digit at a time *******/
 	for(i = 0;i<3;i++){
 	  password *= 10 ;
-	  password += Keypad_GetKey();
+	  password += Keypad_GetKey() - '0'; //'0' = 48 in ASCII
 	  LCD_WriteData('*');
 	}
 
 	return password;
 }
+
+
+
+
+
+
+
 
 
 
