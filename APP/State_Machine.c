@@ -29,6 +29,8 @@ void state_machine(void){
 	UINT8 pass ;
 	UINT8 check_master;
 	UINT8 counter = 0;
+	UINT8 key_or_password;
+	UINT8 mistakes = 0; // counts number of mistakes
 	switch(state){
 		case NEW_PASSWORD:
 
@@ -38,7 +40,7 @@ void state_machine(void){
 
 		break;
 		case MASTER_MODE:
-print_enter_master_password();
+			print_enter_master_password();
             check_master = get_password();
 
             if( check_master != MASTER_PASSWORD )
@@ -86,7 +88,38 @@ print_enter_master_password();
 			break;
 		case ENTER_PASSWORD:
 
-		break;
+			print_enter_password();
+			key_or_password = key_or_pass(); // taking pass or key from the user
+
+			/* checking if the user enter "correct pass" , "wrong pass" or "key"
+			 * *******          if          ********
+			 * "correct pass" ------>>>>>>  open safe
+			 * "wrong pass" ------>>>>>>  increment mistakes variables until it reaches 3 and then goes to "MASTER_MODE" state machine
+			 * "key" ------>>>>>>  goes to "OLD_PASSWORD" state machine
+			 */
+
+			if (key_or_password == 'C')
+			{
+				mistakes = 0; // to reset the number of mistakes
+				state = OLD_PASSWORD;
+			}
+			else if(key_or_password == password)
+			{
+				mistakes = 0;
+				state = OPEN_SAFE;
+			}
+			else
+			{
+				mistakes += 1; // increase the number of mistakes
+				state = ENTER_PASSWORD;
+			}
+			if (mistakes == 3)
+			{
+				state = MASTER_MODE;
+				mistakes = 3;
+			}
+
+			break;
 		case OPEN_SAFE:
 
 		break;
