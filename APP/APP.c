@@ -40,6 +40,7 @@ UINT8 get_password(void){
 }
 
 
+
 /*   Function    : print_enter_confirm_password
 **   Parameters  : None
 **   Return      : None
@@ -53,8 +54,6 @@ void print_enter_confirm_password(void)
 
 
 
-
-=======
 /* 	 Function    : print_enter_master_password
 **   Parameters  : None
 **   Return      : None
