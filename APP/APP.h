@@ -1,13 +1,17 @@
 #ifndef APP_H_
 #define APP_H_
 
+
 #include "../LIB/STD_TYPES.h"
+
+
+#define MASTER_PASSWORD 8070
 
 
 /* 	 Function    : print_enter_new_password
 **   Parameters  : None
 **   Return      : None
-**   Description : It will clear LCD and print Enter New Pass
+**   Description : It will clear LCD and print " Enter New Pass "
 */
 void print_enter_new_password(void);
 
@@ -18,6 +22,14 @@ void print_enter_new_password(void);
 **   Description : It will get key from user , print '*' on LCD
 */
 UINT8 get_password(void);
+
+
+/* 	 Function    : print_enter_master_password
+**   Parameters  : None
+**   Return      : None
+**   Description : It will clear LCD and print " Enter master Password "
+*/
+void print_enter_master_password(void);
 
 
 #endif /* APP_H_ */
