@@ -28,6 +28,8 @@ static UINT8 password;
 */
 void state_machine(void){
 
+	UINT8 counter = 0; // used to count number of mistakes the user will enter the password wrong
+
 	switch(state){
 		case NEW_PASSWORD:
 
@@ -44,7 +46,30 @@ void state_machine(void){
 		break;
 		case OLD_PASSWORD:
 
-		break;
+			print_enter_old_password();
+
+			/* checks if the password user entered "correct" or "wrong"
+			 * - correct ---->>>>   goes to "NEW_PASSWORD" state machine
+			 * - false   ---->>>>  increment the counter by 1 and return to "OLD_PSSWORD" state machine
+			 */
+			if (get_password() == password)
+			{
+				state = NEW_PASSWORD;
+				counter = 0;
+			}
+			else
+			{
+				counter += 1;
+				state = OLD_PASSWORD;
+			}
+			if (counter == 3)
+			{
+				counter = 0 ;
+				state = MASTER_MODE;
+			}
+
+
+			break;
 		case ENTER_PASSWORD:
 
 		break;
