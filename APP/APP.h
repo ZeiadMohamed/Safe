@@ -47,6 +47,22 @@ void print_enter_master_password(void);
 void print_enter_confirm_password(void);
 
 
+/* 	 Function    : print_enter_password
+**   Parameters  : None
+**   Return      : None
+**   Description : It will clear LCD and print " Enter Pass "
+*/
+void print_enter_password(void);
+
+
+/* 	 Function    : key_or_pass
+**   Parameters  : None
+**   Return      : password or key
+**   Description : It will get password from user , print '*' on LCD  or  get key from user
+*/
+UINT8 key_or_pass(void);
+
+
 
 #endif /* APP_H_ */
 

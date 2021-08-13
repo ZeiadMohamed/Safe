@@ -78,6 +78,57 @@ void print_enter_old_password(void){
 }
 
 
+/* 	 Function    : print_enter_password
+**   Parameters  : None
+**   Return      : None
+**   Description : it clears the LCD then prints " Enter Password " on LCD
+*/
+void print_enter_password(void){
+
+	LCD_Clear();
+	LCD_1st_Line();
+	LCD_WriteSentence(" Enter Pass ");
+}
+
+
+/* 	 Function    : key_or_pass
+**   Parameters  : None
+**   Return      : password or key
+**   Description : It will get password from user , print '*' on LCD  or  get key from user
+*/
+UINT8 key_or_pass(void)
+{
+	UINT8 password;
+	UINT8 i;
+	UINT8 key;
+	LCD_2nd_Line();
+
+	key = Keypad_GetKey();
+
+	if (key == 'C')
+	{
+		return key;
+	}
+	else
+	{
+
+	/******* converting from ASCII to integer (Decimal) *******/
+		password = key - '0'; //'0' = 48 in ASCII
+		LCD_WriteData('*');
+
+	/******* Getting password one digit at a time *******/
+		for(i = 0;i<3;i++){
+		  password *= 10 ;
+		  password += Keypad_GetKey() - '0'; //'0' = 48 in ASCII
+		  LCD_WriteData('*');
+		}
+
+		return password;
+	}
+}
+
+
+
 
 
 
