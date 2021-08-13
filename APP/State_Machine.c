@@ -27,6 +27,8 @@ static UINT8 password;
 */
 void state_machine(void){
 	UINT8 pass ;
+	UINT8 check_master;
+	UINT8 counter = 0;
 	switch(state){
 		case NEW_PASSWORD:
 
