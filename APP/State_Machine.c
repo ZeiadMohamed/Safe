@@ -1,4 +1,3 @@
-
 #include "State_Machine.h"
 #include "APP.h"
 
@@ -37,7 +36,13 @@ void state_machine(void){
 
 		break;
 		case MASTER_MODE:
+print_enter_master_password();
+            check_master = get_password();
 
+            if( check_master != MASTER_PASSWORD )
+            	state = MASTER_MODE ;
+            else
+            	state = NEW_PASSWORD;
 		break;
 		case CONFIRM_PASSWORD:
 
@@ -51,83 +56,7 @@ void state_machine(void){
 				state = OPEN_SAFE;
 
 		break;
-		case OLD_PASSWORD:
-
-		break;
-		case ENTER_PASSWORD:
-
-		break;
-		case OPEN_SAFE:
-
-		break;
-		case CLOSE_SAFE:
-
-		break;
-
-
-	}
-
-
-}
-
-=======
-#include "State_Machine.h"
-#include "APP.h"
-
-
-/****************************************************
-*  					Global Variables  			    *
-*****************************************************/
-
-typedef enum {NEW_PASSWORD , MASTER_MODE , CONFIRM_PASSWORD , OLD_PASSWORD , ENTER_PASSWORD , OPEN_SAFE , CLOSE_SAFE}State;
-
-static State state = NEW_PASSWORD;
-
-
-static UINT8 password;
-
-
-/****************************************************
-*  					Functions						*
-*****************************************************/
-
-
-
-
-/* 	 Function    : state_machine
-**   Parameters  : None
-**   Return      : None
-**   Description : It will make the state machine
-*/
-void state_machine(void){
-
-
-	UINT8 counter = 0; // used to count number of mistakes the user will enter the password wrong
-
-
-	UINT8 check_master;
-
-	switch(state){
-		case NEW_PASSWORD:
-
-			print_enter_new_password();
-			password = get_password();
-			state = CONFIRM_PASSWORD;
-
-		break;
-		case MASTER_MODE:
-			print_enter_master_password();
-            check_master = get_password();
-
-            if( check_master != MASTER_PASSWORD )
-            	state = MASTER_MODE ;
-            else
-            	state = NEW_PASSWORD;
-		break;
-		case CONFIRM_PASSWORD:
-
-		break;
-		case OLD_PASSWORD:
+			case OLD_PASSWORD:
 
 			print_enter_old_password();
 
@@ -162,11 +91,15 @@ void state_machine(void){
 		case CLOSE_SAFE:
 
 		break;
-
+		
 
 	}
 
 
 }
+
+		
+
+		
 
 
