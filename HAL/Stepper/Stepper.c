@@ -7,6 +7,10 @@ static UINT8 motor_direction = MOTOR_DIRECTION;
 static UINT8 delay_ms = 100;
 
 
+static void Stepper_Move_4Steps_Clockwise(void);
+static void Stepper_Move_4Steps_CounterClockwise(void);
+
+
 void Stepper_Init(){
 
 #if MOTOR_TYPE == UNIPOLAR
@@ -32,8 +36,8 @@ void Stepper_Init(){
 }
 
 
-void Stepper_SetSpeed(UINT8 speed){
-	delay_ms = (1/((STEPS_PER_REVOLUTION * speed)/60))*1000 ; // time in ms
+void Stepper_Set_Time_Per_Revolution(UINT16 time_ms){
+	delay_ms = time_ms / STEPS_PER_REVOLUTION; // time in milliseconds
 
 }
 
@@ -54,63 +58,61 @@ void Stepper_SetDirection(UINT8 direction){
 
 }
 
+
+
+void Stepper_Half_Revoloution(void){
+	UINT8 i ;
+	UINT8 x = STEPS_PER_REVOLUTION << 3; //Divided by 8
+
+	if(motor_direction == CLOCKWISE){
+
+		for(i = 0;i<x;i++){
+		/******* move 4 steps every iteration *******/
+			Stepper_Move_4Steps_Clockwise();
+		}
+
+	}
+	else if (motor_direction == COUNTER_CLOCKWISE){
+
+		for(i = 0;i<x;i++){
+		/******* move 4 steps every iteration *******/
+			Stepper_Move_4Steps_CounterClockwise();
+		}
+
+	}
+
+}
+
+void Stepper_Full_Revoloution(void){
+	UINT8 i ;
+	UINT8 x = STEPS_PER_REVOLUTION << 2; //Divided by 4
+
+	if(motor_direction == CLOCKWISE){
+
+		for(i = 0;i<x;i++){
+		/******* move 4 steps every iteration *******/
+			Stepper_Move_4Steps_Clockwise();
+		}
+
+	}
+	else if (motor_direction == COUNTER_CLOCKWISE){
+
+		for(i = 0;i<x;i++){
+		/******* move 4 steps every iteration *******/
+			Stepper_Move_4Steps_CounterClockwise();
+		}
+
+	}
+
+
+}
+
 static void Stepper_One_Step_Clockwise(void){
-
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,HIGH);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,LOW);
-	_delay_ms(delay_ms);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,HIGH);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,LOW);
-	_delay_ms(delay_ms);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,HIGH);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,LOW);
-	_delay_ms(delay_ms);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,HIGH);
-	_delay_ms(delay_ms);
-
 
 
 }
 
 static void Stepper_One_Step_CounterClockwise(void){
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,HIGH);
-	_delay_ms(delay_ms);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,HIGH);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,LOW);
-	_delay_ms(delay_ms);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,HIGH);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,LOW);
-	_delay_ms(delay_ms);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,HIGH);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,LOW);
-	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,LOW);
-	_delay_ms(delay_ms);
-
-
-}
-
-void Stepper_Half_Revoloution(){
-
-}
-
-void Stepper_Full_Revoloution(){
 
 
 }
@@ -131,16 +133,78 @@ void Stepper_Steps(UINT8 steps){
 		}
 }
 
+static void Stepper_Move_4Steps_Clockwise(void){
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,HIGH);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,LOW);
+	_delay_ms(delay_ms);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,HIGH);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,LOW);
+	_delay_ms(delay_ms);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,HIGH);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,LOW);
+	_delay_ms(delay_ms);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,HIGH);
+	_delay_ms(delay_ms);
+}
+
+static void Stepper_Move_4Steps_CounterClockwise(void){
+
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,HIGH);
+	_delay_ms(delay_ms);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,HIGH);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,LOW);
+	_delay_ms(delay_ms);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,HIGH);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,LOW);
+	_delay_ms(delay_ms);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_A,HIGH);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_B,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_C,LOW);
+	GPIO_WRITE_PIN_VALUE(MOTOR_PORT,WINDING_D,LOW);
+	_delay_ms(delay_ms);
+}
+
+
 
 #elif MOTOR_TYPE == UNIPOLAR
 void Stepper_Step(UINT8 steps){
 
 }
 
+static void Stepper_Move_4Steps_Clockwise(void){
+
+}
+
+static void Stepper_Move_4Steps_CounterClockwise(void){
+
+}
 
 #elif MOTOR_TYPE == UNIVERSAL
 void Stepper_Step(UINT8 steps){}
 
+static void Stepper_Move_4Steps_Clockwise(void){
+
+}
+
+static void Stepper_Move_4Steps_CounterClockwise(void){
+
+}
 
 #endif
 
