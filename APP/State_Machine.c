@@ -116,7 +116,7 @@ void state_machine(void){
 			if (mistakes == 3)
 			{
 				state = MASTER_MODE;
-				mistakes = 3;
+				mistakes = 0;
 			}
 
 			break;

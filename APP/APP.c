@@ -105,7 +105,7 @@ UINT8 key_or_pass(void)
 
 	key = Keypad_GetKey();
 
-	if (key == 'c')
+	if (key == 'C')
 	{
 		return key;
 	}
