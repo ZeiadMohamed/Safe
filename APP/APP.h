@@ -24,12 +24,20 @@ void print_enter_new_password(void);
 UINT8 get_password(void);
 
 
+/* 	 Function    : print_enter_old_password
+**   Parameters  : None
+**   Return      : None
+**   Description : it clears the LCD then prints " enter old password " on LCD
+*/
+void print_enter_old_password(void);
+
 /* 	 Function    : print_enter_master_password
 **   Parameters  : None
 **   Return      : None
 **   Description : It will clear LCD and print " Enter master Password "
 */
 void print_enter_master_password(void);
+
 
 
 #endif /* APP_H_ */
