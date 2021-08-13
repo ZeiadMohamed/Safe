@@ -39,7 +39,7 @@ UINT8 get_password(void){
 	return password;
 }
 
-/* 	 Function    : print_enter_confirm_password
+/*   Function    : print_enter_confirm_password
 **   Parameters  : None
 **   Return      : None
 **   Description : It will clear LCD and print Enter Confirmation Pass
