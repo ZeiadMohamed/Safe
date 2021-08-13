@@ -5,7 +5,7 @@
 /* 	 Function    : print_enter_new_password
 **   Parameters  : None
 **   Return      : None
-**   Description : It will clear LCD and print Enter New Pass
+**   Description : It will clear LCD and print " Enter New Pass "
 */
 void print_enter_new_password(void){
 
@@ -39,6 +39,16 @@ UINT8 get_password(void){
 	return password;
 }
 
+/* 	 Function    : print_enter_master_password
+**   Parameters  : None
+**   Return      : None
+**   Description : It will clear LCD and print " Enter master Password "
+*/
+void print_enter_master_password(void){
+
+	LCD_Clear();
+	LCD_WriteSentence("Master password:");
+}
 
 /* 	 Function    : print_enter_old_password
 **   Parameters  : None

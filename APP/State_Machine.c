@@ -1,6 +1,7 @@
 #include "State_Machine.h"
 #include "APP.h"
 
+
 /****************************************************
 *  					Global Variables  			    *
 *****************************************************/
@@ -11,7 +12,6 @@ static State state = NEW_PASSWORD;
 
 
 static UINT8 password;
-
 
 
 /****************************************************
@@ -28,7 +28,11 @@ static UINT8 password;
 */
 void state_machine(void){
 
+
 	UINT8 counter = 0; // used to count number of mistakes the user will enter the password wrong
+
+
+	UINT8 check_master;
 
 	switch(state){
 		case NEW_PASSWORD:
@@ -39,7 +43,13 @@ void state_machine(void){
 
 		break;
 		case MASTER_MODE:
+			print_enter_master_password();
+            check_master = get_password();
 
+            if( check_master != MASTER_PASSWORD )
+            	state = MASTER_MODE ;
+            else
+            	state = NEW_PASSWORD;
 		break;
 		case CONFIRM_PASSWORD:
 
