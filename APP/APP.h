@@ -24,13 +24,6 @@ void print_enter_new_password(void);
 UINT8 get_password(void);
 
 
-/* 	 Function    : print_enter_old_password
-**   Parameters  : None
-**   Return      : None
-**   Description : it clears the LCD then prints " enter old password " on LCD
-*/
-void print_enter_old_password(void);
-
 /* 	 Function    : print_enter_master_password
 **   Parameters  : None
 **   Return      : None
@@ -39,14 +32,19 @@ void print_enter_old_password(void);
 void print_enter_master_password(void);
 
 
-/* 	 Function    : print_enter_confirm_password
+/* 	 Function    : open_safe
 **   Parameters  : None
 **   Return      : None
-**   Description : It will clear LCD and print Enter Confirmation Pass
+**   Description : It will determination of motor direction and open the safe
 */
-void print_enter_confirm_password(void);
+void open_safe(void);
 
 
+/* 	 Function    : close_safe
+**   Parameters  : None
+**   Return      : None
+**   Description : It will close the safe
+*/
+void close_safe(void);
 
 #endif /* APP_H_ */
-

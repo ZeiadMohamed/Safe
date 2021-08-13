@@ -1,6 +1,7 @@
 #include "State_Machine.h"
 #include "APP.h"
 
+
 /****************************************************
 *  					Global Variables  			    *
 *****************************************************/
@@ -26,9 +27,8 @@ static UINT8 password;
 **   Description : It will make the state machine
 */
 void state_machine(void){
-	UINT8 pass ;
+
 	UINT8 check_master;
-	UINT8 counter = 0;
 	switch(state){
 		case NEW_PASSWORD:
 
@@ -38,7 +38,7 @@ void state_machine(void){
 
 		break;
 		case MASTER_MODE:
-print_enter_master_password();
+			print_enter_master_password();
             check_master = get_password();
 
             if( check_master != MASTER_PASSWORD )
@@ -46,62 +46,30 @@ print_enter_master_password();
             else
             	state = NEW_PASSWORD;
 		break;
+
 		case CONFIRM_PASSWORD:
 
-			print_enter_confirm_password();   //Display Confirmation Text
-			pass = get_password();            //Function To Get Confirm Password
-			if(pass != password)              //Comparing With Default Password
-			{
-				state = NEW_PASSWORD;
-			}
-			else
-				state = OPEN_SAFE;
+		break;
+		case OLD_PASSWORD:
 
 		break;
-			case OLD_PASSWORD:
-
-			print_enter_old_password();
-
-			/* checks if the password user entered "correct" or "wrong"
-			 * - correct ---->>>>   goes to "NEW_PASSWORD" state machine
-			 * - false   ---->>>>  increment the counter by 1 and return to "OLD_PSSWORD" state machine
-			 */
-			if (get_password() == password)
-			{
-				state = NEW_PASSWORD;
-				counter = 0;
-			}
-			else
-			{
-				counter += 1;
-				state = OLD_PASSWORD;
-			}
-			if (counter == 3)
-			{
-				counter = 0 ;
-				state = MASTER_MODE;
-			}
-
-
-			break;
 		case ENTER_PASSWORD:
 
 		break;
+
 		case OPEN_SAFE:
-
+			open_safe();
+			state = CLOSE_SAFE;
 		break;
+
 		case CLOSE_SAFE:
-
+			close_safe();
+			state = ENTER_PASSWORD;
 		break;
-		
+
 
 	}
 
 
 }
-
-		
-
-		
-
 

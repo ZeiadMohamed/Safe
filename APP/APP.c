@@ -1,6 +1,8 @@
 #include "APP.h"
 #include "../HAL/LCD/LCD.h"
 #include "../HAL/Keypad/Keypad.h"
+#include "../HAL/Stepper/Stepper.h"
+#include <util/delay.h>  // so i can use _dealy_ms() function
 
 /* 	 Function    : print_enter_new_password
 **   Parameters  : None
@@ -39,21 +41,6 @@ UINT8 get_password(void){
 	return password;
 }
 
-
-
-/*   Function    : print_enter_confirm_password
-**   Parameters  : None
-**   Return      : None
-**   Description : It will clear LCD and print Enter Confirmation Pass
-*/
-void print_enter_confirm_password(void)
-{
-	LCD_Clear();
-	LCD_WriteSentence(" Confirm Pass ");
-}
-
-
-
 /* 	 Function    : print_enter_master_password
 **   Parameters  : None
 **   Return      : None
@@ -65,19 +52,26 @@ void print_enter_master_password(void){
 	LCD_WriteSentence("Master password:");
 }
 
-/* 	 Function    : print_enter_old_password
+/* 	 Function    : open_safe
 **   Parameters  : None
 **   Return      : None
-**   Description : it clears the LCD then prints enter old password on LCD
+**   Description : It will open the safe
 */
-void print_enter_old_password(void){
-
-	LCD_Clear();
-	LCD_1st_Line();
-	LCD_WriteSentence(" Enter Old Pass ");
+void open_safe(void){
+	Stepper_SetDirection(CLOCKWISE);
+	Stepper_Half_Revoloution();
+	_delay_ms(3000);
 }
 
-
+/* 	 Function    : close_safe
+**   Parameters  : None
+**   Return      : None
+**   Description : It will close the safe
+*/
+void close_safe(void){
+	Stepper_SetDirection(COUNTER_CLOCKWISE);
+	Stepper_Half_Revoloution();
+}
 
 
 
