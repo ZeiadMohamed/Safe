@@ -19,5 +19,12 @@ void print_enter_new_password(void);
 */
 UINT8 get_password(void);
 
+/* 	 Function    : print_enter_confirm_password
+**   Parameters  : None
+**   Return      : None
+**   Description : It will clear LCD and print Enter Confirmation Pass
+*/
+void print_enter_confirm_password(void);
+
 
 #endif /* APP_H_ */
