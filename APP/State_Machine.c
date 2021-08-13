@@ -59,6 +59,7 @@ void state_machine(void){
 
 		case OPEN_SAFE:
 			open_safe();
+			wait_in_second(3);
 			state = CLOSE_SAFE;
 		break;
 

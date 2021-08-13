@@ -47,4 +47,13 @@ void open_safe(void);
 */
 void close_safe(void);
 
+
+/* 	 Function    : wait_in_second
+**   Parameters  : time
+**   Return      : None
+**   Description : It will wait for user enter seconds
+*/
+void wait_in_second(UINT8 time);
+
+
 #endif /* APP_H_ */

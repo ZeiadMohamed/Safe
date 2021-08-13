@@ -60,7 +60,6 @@ void print_enter_master_password(void){
 void open_safe(void){
 	Stepper_SetDirection(CLOCKWISE);
 	Stepper_Half_Revoloution();
-	_delay_ms(3000);
 }
 
 /* 	 Function    : close_safe
@@ -73,7 +72,14 @@ void close_safe(void){
 	Stepper_Half_Revoloution();
 }
 
-
+/* 	 Function    : wait_in_second
+**   Parameters  : time
+**   Return      : None
+**   Description : It will wait for user enter seconds
+*/
+void wait_in_second(UINT8 time){
+	_delay_ms(1000*time);
+}
 
 
 
