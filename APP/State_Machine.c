@@ -13,7 +13,6 @@ static State state = NEW_PASSWORD;
 static UINT8 password;
 
 
-
 /****************************************************
 *  					Functions						*
 *****************************************************/
@@ -27,7 +26,7 @@ static UINT8 password;
 **   Description : It will make the state machine
 */
 void state_machine(void){
-
+	UINT8 pass ;
 	switch(state){
 		case NEW_PASSWORD:
 
@@ -40,6 +39,15 @@ void state_machine(void){
 
 		break;
 		case CONFIRM_PASSWORD:
+
+			print_enter_confirm_password();   //Display Confirmation Text
+			pass = get_password();            //Function To Get Confirm Password
+			if(pass != password)              //Comparing With Default Password
+			{
+				state = NEW_PASSWORD;
+			}
+			else
+				state = OPEN_SAFE;
 
 		break;
 		case OLD_PASSWORD:

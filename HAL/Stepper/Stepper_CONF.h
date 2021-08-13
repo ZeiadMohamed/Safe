@@ -6,18 +6,18 @@
 
 
 #define MOTOR_PORT				PORT_D
-#define WINDING_A					0
-#define WINDING_B					1
-#define WINDING_C					2
-#define WINDING_D					3
-#define WINDING_E					4
-#define WINDING_F					5
+#define WINDING_A				0
+#define WINDING_B				1
+#define WINDING_C				2
+#define WINDING_D				3
+#define WINDING_E				4
+#define WINDING_F				5
 
 
 #define MOTOR_TYPE				BIPOLAR
-#define STEP_SEQUENCE_TYPE 		NORMAL_STEP_SEQUENCE_4
+#define STEP_SEQUENCE_TYPE 		WAVE_STEP_SEQUENCE_4
 #define MOTOR_DIRECTION 		CLOCKWISE
-#define STEPS_PER_REVOLUTION  48 // resolution of the stepper motor
+#define STEPS_PER_REVOLUTION    48
 
 
 
@@ -31,8 +31,7 @@
 #define HALF_STEP_SEQUENCE_8 	1
 #define WAVE_STEP_SEQUENCE_4	2
 
-
-#define CLOCKWISE 			0
+#define CLOCKWISE 				0
 #define COUNTER_CLOCKWISE 		1
 
 
