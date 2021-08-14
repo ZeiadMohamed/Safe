@@ -129,6 +129,7 @@ UINT8 key_or_pass(void)
 	}
 }
 
+
 /* 	 Function    : open_safe
 **   Parameters  : None
 **   Return      : None
@@ -157,6 +158,7 @@ void close_safe(void){
 void wait_in_second(UINT8 time){
 	_delay_ms(1000*time);
 }
+
 
 
 

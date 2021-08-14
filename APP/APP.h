@@ -63,6 +63,7 @@ void print_enter_password(void);
 UINT8 key_or_pass(void);
 
 
+
 /* 	 Function    : open_safe
 **   Parameters  : None
 **   Return      : None
@@ -85,6 +86,7 @@ void close_safe(void);
 **   Description : It will wait for user enter seconds
 */
 void wait_in_second(UINT8 time);
+
 
 
 #endif /* APP_H_ */
