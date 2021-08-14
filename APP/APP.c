@@ -1,6 +1,8 @@
 #include "APP.h"
 #include "../HAL/LCD/LCD.h"
 #include "../HAL/Keypad/Keypad.h"
+#include "../HAL/Stepper/Stepper.h"
+#include <util/delay.h>  // so i can use _dealy_ms() function
 
 /* 	 Function    : print_enter_new_password
 **   Parameters  : None
@@ -125,6 +127,36 @@ UINT8 key_or_pass(void)
 
 		return password;
 	}
+}
+
+
+/* 	 Function    : open_safe
+**   Parameters  : None
+**   Return      : None
+**   Description : It will open the safe
+*/
+void open_safe(void){
+	Stepper_SetDirection(CLOCKWISE);
+	Stepper_Half_Revoloution();
+}
+
+/* 	 Function    : close_safe
+**   Parameters  : None
+**   Return      : None
+**   Description : It will close the safe
+*/
+void close_safe(void){
+	Stepper_SetDirection(COUNTER_CLOCKWISE);
+	Stepper_Half_Revoloution();
+}
+
+/* 	 Function    : wait_in_second
+**   Parameters  : time
+**   Return      : None
+**   Description : It will wait for user enter seconds
+*/
+void wait_in_second(UINT8 time){
+	_delay_ms(1000*time);
 }
 
 
