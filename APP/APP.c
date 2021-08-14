@@ -1,6 +1,8 @@
 #include "APP.h"
 #include "../HAL/LCD/LCD.h"
 #include "../HAL/Keypad/Keypad.h"
+#include "../HAL/Stepper/Stepper.h"
+#include <util/delay.h>  // so i can use _dealy_ms() function
 
 /* 	 Function    : print_enter_new_password
 **   Parameters  : None
