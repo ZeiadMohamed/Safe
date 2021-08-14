@@ -63,6 +63,29 @@ void print_enter_password(void);
 UINT8 key_or_pass(void);
 
 
+/* 	 Function    : open_safe
+**   Parameters  : None
+**   Return      : None
+**   Description : It will determination of motor direction and open the safe
+*/
+void open_safe(void);
+
+
+/* 	 Function    : close_safe
+**   Parameters  : None
+**   Return      : None
+**   Description : It will close the safe
+*/
+void close_safe(void);
+
+
+/* 	 Function    : wait_in_second
+**   Parameters  : time
+**   Return      : None
+**   Description : It will wait for user enter seconds
+*/
+void wait_in_second(UINT8 time);
+
 
 #endif /* APP_H_ */
 
