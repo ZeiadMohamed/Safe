@@ -1,10 +1,21 @@
+#include "APP/APP.h"
+#include "APP/State_Machine.h"
+
+
 void main(void){
 
-while(1){
+				/*****  initialization of the (LCD - KEYPAD - Stepper)  *****/
+	System_Init();
+
+	while(1){
+
+							/*****  State Machine  *****/
+		state_machine();
+
+	}
+
 
 
 }
 
 
-
-}

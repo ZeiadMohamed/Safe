@@ -5,7 +5,24 @@
 #include "../LIB/STD_TYPES.h"
 
 
-#define MASTER_PASSWORD 8070
+
+/******************************************************************************/
+/*					   			Defined Constants				 			  */
+/******************************************************************************/
+
+#define MASTER_PASSWORD 					5555
+#define NUMBER_OF_DIGITS_IN_PASSWORD  		4
+
+#define DONE 								1
+#define READY 								2
+
+#define RESET   							0
+#define NUMBER_OF_TRIALS 					3
+
+
+/******************************************************************************/
+/*								Functions Prototype				 			  */
+/******************************************************************************/
 
 
 /* 	 Function    : print_enter_new_password
@@ -16,12 +33,36 @@
 void print_enter_new_password(void);
 
 
+
+
 /* 	 Function    : get_password
 **   Parameters  : None
 **   Return      : password
 **   Description : It will get key from user , print '*' on LCD
 */
-UINT8 get_password(void);
+void get_password(UINT16* passcode);
+
+
+
+
+/* 	 Function    : get_key_counts
+**   Parameters  : None
+**   Return      : number of keys entered by the user
+**   Description : It will get number of keys entered by the user
+*/
+UINT8 get_key_counts(void);
+
+
+
+
+/* 	 Function    : set_key_counts
+**   Parameters  : number of counts
+**   Return      : None
+**   Description : It will set number of keys entered by the user
+*/
+void set_key_counts(UINT8 num);
+
+
 
 
 /* 	 Function    : print_enter_old_password
@@ -30,6 +71,8 @@ UINT8 get_password(void);
 **   Description : it clears the LCD then prints " enter old password " on LCD
 */
 void print_enter_old_password(void);
+
+
 
 /* 	 Function    : print_enter_master_password
 **   Parameters  : None
@@ -54,13 +97,6 @@ void print_enter_confirm_password(void);
 */
 void print_enter_password(void);
 
-
-/* 	 Function    : key_or_pass
-**   Parameters  : None
-**   Return      : password or key
-**   Description : It will get password from user , print '*' on LCD  or  get key from user
-*/
-UINT8 key_or_pass(void);
 
 
 
@@ -87,6 +123,22 @@ void close_safe(void);
 */
 void wait_in_second(UINT8 time);
 
+
+
+/* 	 Function    : System_Init
+**   Parameters  : None
+**   Return      : None
+**   Description : It will Initialize the system (LCD - Stepper - Keypad)
+*/
+void System_Init(void);
+
+
+/* 	 Function    : remove_password_from_LCD
+**   Parameters  : None
+**   Return      : None
+**   Description : It will remove the '*' on the LCD , put ' ' instead
+*/
+void remove_password_from_LCD(void);
 
 
 #endif /* APP_H_ */

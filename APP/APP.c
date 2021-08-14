@@ -4,6 +4,8 @@
 #include "../HAL/Stepper/Stepper.h"
 #include <util/delay.h>  // so i can use _dealy_ms() function
 
+static UINT8 keys_counter = 0;
+
 /* 	 Function    : print_enter_new_password
 **   Parameters  : None
 **   Return      : None
@@ -13,6 +15,7 @@ void print_enter_new_password(void){
 
 	LCD_Clear();
 	LCD_WriteSentence(" Enter New Pass ");
+	LCD_2nd_Line();
 }
 
 
@@ -21,24 +24,44 @@ void print_enter_new_password(void){
 **   Return      : password
 **   Description : It will get key from user , print '*' on LCD
 */
-UINT8 get_password(void){
+void get_password(UINT16* passcode){
+	UINT8 digit;
+	UINT8 key;
 
-	UINT8 password;
-	UINT8 i;
-	LCD_2nd_Line();
+	key =Keypad_GetKey();
+	if(key != NO_KEY_IS_PRESSED){
+	/******* converting from ASCII to integer (Decimal) *******/
+		digit = key - '0'; //'0' = 48 in ASCII
+		*passcode *= 10 ;
+		*passcode += digit;
+		LCD_WriteData('*');
+		keys_counter++;
 
-/******* converting from ASCII to integer (Decimal) *******/
-	password = Keypad_GetKey() - '0'; //'0' = 48 in ASCII
-	LCD_WriteData('*');
-
-/******* Getting password one digit at a time *******/
-	for(i = 0;i<3;i++){
-	  password *= 10 ;
-	  password += Keypad_GetKey() - '0'; //'0' = 48 in ASCII
-	  LCD_WriteData('*');
 	}
 
-	return password;
+
+}
+
+
+
+/* 	 Function    : get_key_counts
+**   Parameters  : None
+**   Return      : number of keys entered by the user
+**   Description : It will get number of keys entered by the user
+*/
+UINT8 get_key_counts(){
+	return keys_counter;
+}
+
+
+
+/* 	 Function    : set_key_counts
+**   Parameters  : number of counts
+**   Return      : None
+**   Description : It will set number of keys entered by the user
+*/
+void set_key_counts(UINT8 num){
+	 keys_counter = num;
 }
 
 
@@ -52,6 +75,7 @@ void print_enter_confirm_password(void)
 {
 	LCD_Clear();
 	LCD_WriteSentence(" Confirm Pass ");
+	LCD_2nd_Line();
 }
 
 
@@ -64,7 +88,8 @@ void print_enter_confirm_password(void)
 void print_enter_master_password(void){
 
 	LCD_Clear();
-	LCD_WriteSentence("Master password:");
+	LCD_WriteSentence("Master password");
+	LCD_2nd_Line();
 }
 
 /* 	 Function    : print_enter_old_password
@@ -77,6 +102,7 @@ void print_enter_old_password(void){
 	LCD_Clear();
 	LCD_1st_Line();
 	LCD_WriteSentence(" Enter Old Pass ");
+	LCD_2nd_Line();
 }
 
 
@@ -89,45 +115,11 @@ void print_enter_password(void){
 
 	LCD_Clear();
 	LCD_1st_Line();
-	LCD_WriteSentence(" Enter Pass ");
-}
-
-
-/* 	 Function    : key_or_pass
-**   Parameters  : None
-**   Return      : password or key
-**   Description : It will get password from user , print '*' on LCD  or  get key from user
-*/
-UINT8 key_or_pass(void)
-{
-	UINT8 password;
-	UINT8 i;
-	UINT8 key;
+	LCD_WriteSentence(" Enter Password ");
 	LCD_2nd_Line();
-
-	key = Keypad_GetKey();
-
-	if (key == 'C')
-	{
-		return key;
-	}
-	else
-	{
-
-	/******* converting from ASCII to integer (Decimal) *******/
-		password = key - '0'; //'0' = 48 in ASCII
-		LCD_WriteData('*');
-
-	/******* Getting password one digit at a time *******/
-		for(i = 0;i<3;i++){
-		  password *= 10 ;
-		  password += Keypad_GetKey() - '0'; //'0' = 48 in ASCII
-		  LCD_WriteData('*');
-		}
-
-		return password;
-	}
 }
+
+
 
 
 /* 	 Function    : open_safe
@@ -136,6 +128,8 @@ UINT8 key_or_pass(void)
 **   Description : It will open the safe
 */
 void open_safe(void){
+	LCD_Clear();
+	LCD_WriteSentence("  Safe  Opened  ");
 	Stepper_SetDirection(CLOCKWISE);
 	Stepper_Half_Revoloution();
 }
@@ -146,6 +140,8 @@ void open_safe(void){
 **   Description : It will close the safe
 */
 void close_safe(void){
+	LCD_Clear();
+	LCD_WriteSentence("  Safe  Closed  ");
 	Stepper_SetDirection(COUNTER_CLOCKWISE);
 	Stepper_Half_Revoloution();
 }
@@ -162,9 +158,36 @@ void wait_in_second(UINT8 time){
 
 
 
+/* 	 Function    : System_Init
+**   Parameters  : None
+**   Return      : None
+**   Description : It will Initialize the system (LCD - Stepper - Keypad)
+*/
+void System_Init(void){
+
+	LCD_Init();
+	Keypad_Init();
+	Stepper_Init();
+	/******* Stepper will make half Revolution in 1 second *******/
+	Stepper_Set_Time_Per_Revolution(2000); //takes time in milliSeconds
+}
 
 
 
+/* 	 Function    : remove_password_from_LCD
+**   Parameters  : None
+**   Return      : None
+**   Description : It will remove the '*' on the LCD , put ' ' instead
+*/
+void remove_password_from_LCD(void){
+	UINT8 i ;
+	LCD_2nd_Line();
+
+	for(i =0 ; i<NUMBER_OF_DIGITS_IN_PASSWORD;i++)
+		LCD_WriteData(' ');
+
+	LCD_2nd_Line();
+}
 
 
 

@@ -2,7 +2,7 @@
 #include "Keypad_Config.h"
 #include<util/delay.h>
 
-static const UINT8 keypad_array[COL][ROW] =  { KEYPAD_ARRAY };   //more readable
+static const UINT8 keypad_array[ROW][COL] =  { KEYPAD_ARRAY };   //more readable
 
 
 void Keypad_Init(void){
@@ -38,7 +38,7 @@ UINT8 Keypad_GetKey(void)
 {
   UINT8 ROWCOUNT;
 	UINT8 COLCOUNT;
-	UINT8 RESULT;
+	UINT8 RESULT = NO_KEY_IS_PRESSED;
 	for(ROWCOUNT=ROW_INT; ROWCOUNT<=ROW_END ;ROWCOUNT++)
 	{
 		GPIO_WRITE_PIN_VALUE(KEYPAD_PORT ,ROWCOUNT , LOW);

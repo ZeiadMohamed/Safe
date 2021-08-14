@@ -62,7 +62,7 @@ void Stepper_SetDirection(UINT8 direction){
 
 void Stepper_Half_Revoloution(void){
 	UINT8 i ;
-	UINT8 x = STEPS_PER_REVOLUTION << 3; //Divided by 8
+	UINT8 x = STEPS_PER_REVOLUTION >> 3; //Divided by 8
 
 	if(motor_direction == CLOCKWISE){
 
@@ -85,7 +85,7 @@ void Stepper_Half_Revoloution(void){
 
 void Stepper_Full_Revoloution(void){
 	UINT8 i ;
-	UINT8 x = STEPS_PER_REVOLUTION << 2; //Divided by 4
+	UINT8 x = STEPS_PER_REVOLUTION >> 2; //Divided by 4
 
 	if(motor_direction == CLOCKWISE){
 

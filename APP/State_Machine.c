@@ -1,5 +1,8 @@
 #include "State_Machine.h"
 #include "APP.h"
+#include <util/delay.h>
+
+
 
 /****************************************************
 *  					Global Variables  			    *
@@ -10,7 +13,18 @@ typedef enum {NEW_PASSWORD , MASTER_MODE , CONFIRM_PASSWORD , OLD_PASSWORD , ENT
 static State state = NEW_PASSWORD;
 
 
-static UINT8 password;
+static volatile UINT16 password = 0;
+static volatile UINT16 master_password = 0;
+static volatile UINT16 confirmed_pass = 0;
+static volatile UINT16 old_password = 0;
+static volatile UINT16 entered_password = 0;
+
+static UINT8 mistakes = 0; // counts number of mistakes
+static UINT8 counter = 0;
+
+static UINT8 function_flag = READY;
+
+
 
 
 /****************************************************
@@ -26,70 +40,113 @@ static UINT8 password;
 **   Description : It will make the state machine
 */
 void state_machine(void){
-	UINT8 pass ;
-	UINT8 check_master;
-	UINT8 counter = 0;
-	UINT8 key_or_password;
-	UINT8 mistakes = 0; // counts number of mistakes
+
+	UINT8 change_password_button = 'C' - '0';
+
+
 	switch(state){
 		case NEW_PASSWORD:
+			if(function_flag == READY){
+				print_enter_new_password();
+				function_flag = DONE;
+			}
 
-			print_enter_new_password();
-			password = get_password();
+			get_password(&password);
+			if(get_key_counts() == NUMBER_OF_DIGITS_IN_PASSWORD){
+			set_key_counts(RESET); //Clear the counter
 			state = CONFIRM_PASSWORD;
-
+			_delay_ms(250);
+			function_flag = READY;
+			}
 		break;
 		case MASTER_MODE:
+			if(function_flag == READY){
 			print_enter_master_password();
-            check_master = get_password();
+			function_flag = DONE;
+			}
+            get_password(&master_password);
+            if(get_key_counts()== NUMBER_OF_DIGITS_IN_PASSWORD){
+            	set_key_counts(RESET);
+                if( master_password == MASTER_PASSWORD ){
+                	function_flag = READY;
+                	state = NEW_PASSWORD;
+                	password = RESET;
+                }
+                master_password = RESET;
+                _delay_ms(250);
+                remove_password_from_LCD();
+              }
 
-            if( check_master != MASTER_PASSWORD )
-            	state = MASTER_MODE ;
-            else
-            	state = NEW_PASSWORD;
 		break;
 		case CONFIRM_PASSWORD:
-
+			if(function_flag == READY){
 			print_enter_confirm_password();   //Display Confirmation Text
-			pass = get_password();            //Function To Get Confirm Password
-			if(pass != password)              //Comparing With Default Password
+			function_flag = DONE;
+			}
+
+			get_password(&confirmed_pass); //Function To Get Confirm Password
+			if(get_key_counts()== NUMBER_OF_DIGITS_IN_PASSWORD){
+			set_key_counts(RESET);
+			if(confirmed_pass != password) //Comparing With Default Password
 			{
 				state = NEW_PASSWORD;
+				password = RESET;
+				_delay_ms(250);
+				function_flag = READY;
 			}
-			else
+			else{
 				state = OPEN_SAFE;
-
+				_delay_ms(250);
+				function_flag = READY;
+				}
+			confirmed_pass = RESET;
+			}
 		break;
 			case OLD_PASSWORD:
-
+			if(function_flag == READY){
 			print_enter_old_password();
-
-			/* checks if the password user entered "correct" or "wrong"
+			function_flag = DONE;
+			}
+			/* checks if the password user ENTERED "correct" or "wrong"
 			 * - correct ---->>>>   goes to "NEW_PASSWORD" state machine
 			 * - false   ---->>>>  increment the counter by 1 and return to "OLD_PSSWORD" state machine
 			 */
-			if (get_password() == password)
-			{
-				state = NEW_PASSWORD;
-				counter = 0;
-			}
-			else
-			{
-				counter += 1;
-				state = OLD_PASSWORD;
-			}
-			if (counter == 3)
-			{
-				counter = 0 ;
-				state = MASTER_MODE;
-			}
+			get_password(&old_password);
 
+			if(get_key_counts()== NUMBER_OF_DIGITS_IN_PASSWORD){
+			   set_key_counts(RESET);
+				if (old_password == password)
+				{
+					state = NEW_PASSWORD;
+					password = RESET;
+					_delay_ms(250);
+					counter = RESET;
+					function_flag = READY;
+				}
+				else
+				{
+					_delay_ms(250);
+					remove_password_from_LCD();
+					counter++;
+					if (counter == NUMBER_OF_TRIALS)
+					{
 
+						counter = RESET ;
+						state = MASTER_MODE;
+						function_flag = READY;
+					}
+
+				}
+
+				old_password = RESET;
+			}
 			break;
 		case ENTER_PASSWORD:
-
+			if(function_flag == READY){
 			print_enter_password();
-			key_or_password = key_or_pass(); // taking pass or key from the user
+			function_flag = DONE;
+			}
+			 // taking pass or key from the user
 
 			/* checking if the user enter "correct pass" , "wrong pass" or "key"
 			 * *******          if          ********
@@ -98,36 +155,56 @@ void state_machine(void){
 			 * "key" ------>>>>>>  goes to "OLD_PASSWORD" state machine
 			 */
 
-			if (key_or_password == 'C')
+			get_password(&entered_password);
+
+			if (entered_password == change_password_button)
 			{
-				mistakes = 0; // to reset the number of mistakes
+				remove_password_from_LCD();
+				set_key_counts(RESET);
+				entered_password = RESET;
+				mistakes = RESET; // to reset the number of mistakes
 				state = OLD_PASSWORD;
+				_delay_ms(250);
+				function_flag = READY;
 			}
-			else if(key_or_password == password)
-			{
-				mistakes = 0;
-				state = OPEN_SAFE;
-			}
-			else
-			{
-				mistakes += 1; // increase the number of mistakes
-				state = ENTER_PASSWORD;
-			}
-			if (mistakes == 3)
-			{
-				state = MASTER_MODE;
-				mistakes = 0;
-			}
+			else{
+				if(get_key_counts()== NUMBER_OF_DIGITS_IN_PASSWORD){
+				set_key_counts(RESET);
+
+					if(entered_password == password)
+					{
+						mistakes = RESET;
+						state = OPEN_SAFE;
+						_delay_ms(250);
+						function_flag = READY;
+					}
+					else
+					{
+						_delay_ms(250);
+						remove_password_from_LCD();
+						mistakes ++; // increase the number of mistakes
+						if (mistakes == NUMBER_OF_TRIALS)
+						{
+							mistakes = RESET;
+							state = MASTER_MODE;
+							function_flag = READY;
+						}
+
+					}
+					entered_password = RESET;
+				}
+			 }
 
 
 			break;
 		case OPEN_SAFE:
+
 			open_safe();
 			wait_in_second(3);
 			state = CLOSE_SAFE;
 		break;
 		case CLOSE_SAFE:
-	                close_safe();
+	        close_safe();
 			state = ENTER_PASSWORD;
 		break;
 		
