@@ -119,12 +119,16 @@ void state_machine(void){
 				mistakes = 0;
 			}
 
+
 			break;
 		case OPEN_SAFE:
-
+			open_safe();
+			wait_in_second(3);
+			state = CLOSE_SAFE;
 		break;
 		case CLOSE_SAFE:
-
+	                close_safe();
+			state = ENTER_PASSWORD;
 		break;
 		
 
