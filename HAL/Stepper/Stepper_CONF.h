@@ -6,10 +6,10 @@
 
 
 #define MOTOR_PORT				PORT_D
-#define WINDING_A				0
-#define WINDING_B				1
-#define WINDING_C				2
-#define WINDING_D				3
+#define WINDING_A				3
+#define WINDING_B				2
+#define WINDING_C				1
+#define WINDING_D				0
 #define WINDING_E				4
 #define WINDING_F				5
 
