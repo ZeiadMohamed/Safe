@@ -6,6 +6,7 @@
 
 
 #define MOTOR_PORT				PORT_D
+
 #define WINDING_A				3
 #define WINDING_B				2
 #define WINDING_C				1
