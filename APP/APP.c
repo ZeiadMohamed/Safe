@@ -130,8 +130,8 @@ void print_enter_password(void){
 void open_safe(void){
 	LCD_Clear();
 	LCD_WriteSentence("  Safe  Opened  ");
-	Stepper_SetDirection(CLOCKWISE);
-	Stepper_Half_Revoloution();
+	//Stepper_SetDirection(CLOCKWISE);
+	Stepper_Half_Revoloution(CLOCKWISE);
 }
 
 /* 	 Function    : close_safe
@@ -142,8 +142,8 @@ void open_safe(void){
 void close_safe(void){
 	LCD_Clear();
 	LCD_WriteSentence("  Safe  Closed  ");
-	Stepper_SetDirection(COUNTER_CLOCKWISE);
-	Stepper_Half_Revoloution();
+	//Stepper_SetDirection(COUNTER_CLOCKWISE);
+	Stepper_Half_Revoloution(COUNTER_CLOCKWISE);
 }
 
 /* 	 Function    : wait_in_second
@@ -168,8 +168,6 @@ void System_Init(void){
 	LCD_Init();
 	Keypad_Init();
 	Stepper_Init();
-	/******* Stepper will make half Revolution in 1 second *******/
-	Stepper_Set_Time_Per_Revolution(2000); //takes time in milliSeconds
 }
 
 
