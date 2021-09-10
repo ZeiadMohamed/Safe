@@ -10,7 +10,7 @@
 /*					   			Defined Constants				 			  */
 /******************************************************************************/
 
-#define MASTER_PASSWORD 					5555
+#define MASTER_PASSWORD 					7080
 #define NUMBER_OF_DIGITS_IN_PASSWORD  		4
 
 #define DONE 								1
