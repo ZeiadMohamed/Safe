@@ -4,7 +4,7 @@
 
 void main(void){
 
-				/*****  initialization of the (LCD - KEYPAD - Stepper)  *****/
+				/*****  initialization of the (LCD - KEYPAD - Steppermotor)  *****/
 	System_Init();
 
 	while(1){
